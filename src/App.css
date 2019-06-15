@@ -9,18 +9,34 @@
 }
 
 .App-header {
+  /* color: #282c34;
+  background-color: white; */
   background-color: #282c34;
+  color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
-  color: #61dafb;
+  /* color: #61dafb; */
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+}
+
+.list-item p {
+  width: 80px;
+  margin: 20px 10px 10px 10px;
+}
+.list-item p:last-child {
+  width: 200px;
 }
 
 @keyframes App-logo-spin {

@@ -1,14 +1,23 @@
 {
-  "name": "pagination_test",
+  "name": "react_redux_saga_test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "async": "^3.0.1",
+    "delay": "^4.3.0",
+    "lodash": "^4.17.11",
+    "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.1",
+    "react-redux": "^7.1.0",
+    "redux-saga": "^1.0.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3004 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
