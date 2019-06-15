@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 // import QRCode from 'qrcode.react';
 
-import "./App.css";
+import './App.css';
 
 // const assessmentLink = 'https://dev.portal.trayt.io/assessments/vt0SphMZorAeqF2TBuJBUMpWuZ4WCyPNyuQjbRHt9SeaLCtJx7RNMKbQ6F059YjZ479PpHJaqchNvhDCoCfbUj5oK6S2tPrXvyJMK8EAWteK72vewPR8rbJFdNX7Gu2FGrWzL25SE7GTXN3K0fHFTLwmLWRD05oAAVpC5pTCF2uor4fJD1R5wfMsZfJSKBx1mn5CWx4UGAqj5MjByDbfhwSWGbYCjBrSjZwFHuEk7sfKHfnAXfWNSQx5vgvVq8Fs'
 // function renderQRcode() {
@@ -22,25 +22,25 @@ function App() {
   // const counter = useSelector(s => s.counter)
   // const counterRunningState = useSelector(s => s.counterRunningState)
   // const autoFetch = useSelector(s => s.autoFetch)
-  const patients = useSelector(s => s.patients)
-  const patientLEK = useSelector(s => s.patientLEK)
-  const dispatch = useDispatch()
+  const patients = useSelector(s => s.patients);
+  const patientLEK = useSelector(s => s.patientLEK);
+  const dispatch = useDispatch();
 
   async function handleCall() {
     dispatch({
       type: 'REFRESH_PART_PATIENT_LIST',
-    })
+    });
   }
 
   function handleClear() {
-    console.clear()
+    console.clear();
     dispatch({
-      type: 'CLEAR_PATIENTS'
-    })
+      type: 'CLEAR_PATIENTS',
+    });
     dispatch({
       type: 'SET_LEK',
       payload: 'START',
-    })
+    });
   }
 
   function handleRefresh() {
@@ -48,12 +48,12 @@ function App() {
       dispatch({
         type: 'SET_LEK',
         payload: 'START',
-      })
+      });
     }
 
     dispatch({
-      type: 'REFRESH_PATIENT_LIST'
-    })
+      type: 'REFRESH_PATIENT_LIST',
+    });
   }
 
   // const action = (type) => dispatch({ type })
@@ -77,8 +77,8 @@ function App() {
         <button onClick={handleClear}>Clear</button>
       </div>
       <div>
-        {patients.map((patient) => (
-          <div className='list-item' key={patient.patientId}>
+        {patients.map(patient => (
+          <div className="list-item" key={patient.patientId}>
             <p>{patient.onboarding ? 'true' : 'false'}</p>
             <p>{new Date(patient.dateOfLastLog).toLocaleDateString()}</p>
             <p>{patient.name}</p>

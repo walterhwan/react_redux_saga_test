@@ -1,24 +1,27 @@
-import { combineReducers } from 'redux'
-import _ from "lodash";
+import { combineReducers } from 'redux';
+import _ from 'lodash';
 
 function patients(state = [], action) {
+  const arr = action.payload.concat(state);
   switch (action.type) {
     case 'GET_PAGINATED_PATIENTS_SUCESS':
-      const arr = action.payload.concat(state)
-      return _.chain(arr).uniqBy('patientId').orderBy(['onboarding', 'dateOfLastLog'], ['desc', 'asc']).value()
+      return _.chain(arr)
+        .uniqBy('patientId')
+        .orderBy(['onboarding', 'dateOfLastLog'], ['desc', 'asc'])
+        .value();
     case 'CLEAR_PATIENTS':
-      return []
+      return [];
     default:
-      return state
+      return state;
   }
 }
 
 function patientLEK(state = 'START', action) {
   switch (action.type) {
     case 'SET_LEK':
-      return action.payload || null
+      return action.payload || null;
     default:
-      return state
+      return state;
   }
 }
 
@@ -57,6 +60,6 @@ const rootRecuders = combineReducers({
   patients,
   patientLEK,
   // autoFetch,
-})
+});
 
-export default rootRecuders
+export default rootRecuders;
