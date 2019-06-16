@@ -19,16 +19,12 @@ import './App.css';
 // }
 
 function App() {
-  // const counter = useSelector(s => s.counter)
-  // const counterRunningState = useSelector(s => s.counterRunningState)
-  // const autoFetch = useSelector(s => s.autoFetch)
   const patients = useSelector(s => s.patients);
-  const patientLEK = useSelector(s => s.patientLEK);
   const dispatch = useDispatch();
 
   async function handleCall() {
     dispatch({
-      type: 'REFRESH_PART_PATIENT_LIST',
+      type: 'GET_PAGINATED_PATIENTS_REQUEST',
     });
   }
 
@@ -38,42 +34,30 @@ function App() {
       type: 'CLEAR_PATIENTS',
     });
     dispatch({
-      type: 'SET_LEK',
-      payload: 'START',
+      type: 'CLEAR_LEK',
     });
   }
 
   function handleRefresh() {
-    if (!patientLEK) {
-      dispatch({
-        type: 'SET_LEK',
-        payload: 'START',
-      });
-    }
-
     dispatch({
-      type: 'REFRESH_PATIENT_LIST',
+      type: 'GET_PATIENTS_REQUEST',
     });
   }
 
-  // const action = (type) => dispatch({ type })
+  function handleCancel() {
+    dispatch({
+      type: 'CANCEL_GET_PATIENTS_REQUEST',
+    });
+  }
 
   return (
     <div className="App-header">
       <p>Patient List</p>
       {/* {renderQRcode()} */}
-      {/* <div>
-        <button onClick={() => action('INCREMENT_ASYNC')}>Increment</button>
-        <p>{`Count: ${counter}`}</p>
-      </div> */}
-      {/* <div>
-        <button onClick={() => dispatch({ type: 'START_AUTOFETCH' })}>Start Auto Fetch</button>
-        <button onClick={() => dispatch({ type: 'STOP_AUTOFETCH' })}>Stop Auto Fetch</button>
-        <p>{`Auto Fetch is: ${autoFetch ? 'ON' : 'OFF'}`}</p>
-      </div> */}
       <div>
         <button onClick={handleRefresh}>Auto Refresh All</button>
         <button onClick={handleCall}>Call API Manually</button>
+        <button onClick={handleCancel}>Cancel Auto Refresh</button>
         <button onClick={handleClear}>Clear</button>
       </div>
       <div>

@@ -2,13 +2,17 @@ import { combineReducers } from 'redux';
 import _ from 'lodash';
 
 function patients(state = [], action) {
-  const arr = action.payload.concat(state);
+  let arr;
   switch (action.type) {
     case 'GET_PAGINATED_PATIENTS_SUCESS':
+      arr = action.payload.concat(state);
       return _.chain(arr)
         .uniqBy('patientId')
         .orderBy(['onboarding', 'dateOfLastLog'], ['desc', 'asc'])
         .value();
+    case 'GET_PAGINATED_PATIENTS_FAILURE':
+      console.log(action.error);
+      return state;
     case 'CLEAR_PATIENTS':
       return [];
     default:
@@ -16,10 +20,12 @@ function patients(state = [], action) {
   }
 }
 
-function patientLEK(state = 'START', action) {
+function patientLEK(state = '', action) {
   switch (action.type) {
     case 'SET_LEK':
-      return action.payload || null;
+      return action.payload || '';
+    case 'CLEAR_LEK':
+      return '';
     default:
       return state;
   }

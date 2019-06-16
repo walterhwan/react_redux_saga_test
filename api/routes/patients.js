@@ -1,11 +1,12 @@
 const express = require('express');
 const faker = require('faker');
+const delay = require('delay');
 
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  const exclusiveStartKey = req.query.exclusiveStartKey
+router.get('/', async function(req, res) {
+  const exclusiveStartKey = req.query.exclusiveStartKey;
   const list = [
     {
       patientId: '9d46fb7c-5ffb-4ec8-8ef5-437f218fe837',
@@ -85,34 +86,47 @@ router.get('/', function(req, res, next) {
       onboarding: true,
       dateOfLastLog: 1556708080683,
     },
-  ]
-  
-  const returnSizeLimit = 5
-  let patients = []
+  ];
+
+  const returnSizeLimit = 5;
+  let patients = [];
   if (!exclusiveStartKey) {
-    patients = list.slice(0, returnSizeLimit)
+    patients = list.slice(0, returnSizeLimit);
   } else {
-    const index = list.findIndex((el) => el.patientId === exclusiveStartKey) + 1
+    const index = list.findIndex(el => el.patientId === exclusiveStartKey) + 1;
     if (index < 0) {
-      patients = list.slice(0, returnSizeLimit)
+      patients = list.slice(0, returnSizeLimit);
     } else {
-      patients = list.slice(index, index + returnSizeLimit)
+      patients = list.slice(index, index + returnSizeLimit);
     }
   }
 
-  let lastEvaluatedKey
+  let lastEvaluatedKey;
   if (patients.length < returnSizeLimit) {
-    lastEvaluatedKey = undefined
+    lastEvaluatedKey = undefined;
   } else {
-    lastEvaluatedKey = patients[patients.length - 1].patientId
+    lastEvaluatedKey = patients[patients.length - 1].patientId;
   }
 
   const returnJson = {
     patients,
     ...(lastEvaluatedKey && { lastEvaluatedKey }),
-  }
+  };
 
-  res.json(returnJson)
+  // const num = getRandomInt(3);
+  // if (num === 0) {
+  //   res.status(500);
+  //   res.json({ error: 'Server Error' });
+  // } else {
+  //   await delay(300);
+  //   res.json(returnJson);
+  // }
+  await delay(300);
+  res.json(returnJson);
 });
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 module.exports = router;
