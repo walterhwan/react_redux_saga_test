@@ -43,7 +43,7 @@ function* getPaginatedPatients() {
   });
 
   if (error) {
-    put({
+    yield put({
       type: 'GET_PAGINATED_PATIENTS_FAILURE',
       error: error,
     });
@@ -70,11 +70,14 @@ function* getPaginatedPatients() {
 function* syncPatients() {
   try {
     let patientLEK;
-    do {
+    while (true) {
       yield getPaginatedPatients();
-      yield delay(1000);
       patientLEK = yield select(state => state.patientLEK);
-    } while (patientLEK);
+
+      if (!patientLEK) {
+        yield delay(5000);
+      }
+    }
   } finally {
     if (yield cancelled()) {
       console.log('manually canceled');
@@ -92,12 +95,6 @@ function* refreshPatients() {
   yield take('CANCEL_GET_PATIENTS_REQUEST');
 
   yield cancel(syncTask);
-
-  // do {
-  //   yield getPaginatedPatients();
-  //   yield delay(400);
-  //   patientLEK = yield select(state => state.patientLEK);
-  // } while (patientLEK);
 }
 
 function* rootSaga() {

@@ -22,6 +22,12 @@ function App() {
   const patients = useSelector(s => s.patients);
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    dispatch({
+      type: 'GET_PATIENTS_REQUEST',
+    });
+  }, [dispatch]);
+
   async function handleCall() {
     dispatch({
       type: 'GET_PAGINATED_PATIENTS_REQUEST',
@@ -55,9 +61,9 @@ function App() {
       <p>Patient List</p>
       {/* {renderQRcode()} */}
       <div>
-        <button onClick={handleRefresh}>Auto Refresh All</button>
-        <button onClick={handleCall}>Call API Manually</button>
+        <button onClick={handleRefresh}>Auto Refresh</button>
         <button onClick={handleCancel}>Cancel Auto Refresh</button>
+        <button onClick={handleCall}>Call API Manually</button>
         <button onClick={handleClear}>Clear</button>
       </div>
       <div>
