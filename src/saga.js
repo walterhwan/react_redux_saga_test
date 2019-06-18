@@ -24,6 +24,18 @@ function callGetPatients({ exclusiveStartKey }) {
     .catch(error => ({ error }));
 }
 
+function callGetItems() {
+  return request
+    .get({
+      url: 'http://localhost:8000/numbers',
+      json: true,
+    })
+    .then(response => ({ response }))
+    .catch(error => {
+      return { error }
+    });
+}
+
 function* getPaginatedPatients() {
   const patientLEK = yield select(state => state.patientLEK);
 
@@ -80,15 +92,23 @@ function* syncPatients() {
     }
   } finally {
     if (yield cancelled()) {
-      console.log('manually canceled');
+      console.log('Auto get patients canceled');
     }
   }
 }
 
+function* getItems() {
+  const { response, error } = yield call(callGetItems)
+
+  if (error) {
+    console.log(error)
+  }
+
+  yield put({ type: 'SET_ITEMS', payload: response.items })
+}
+
 function* refreshPatients() {
-  yield put({
-    type: 'CLEAR_LEK',
-  });
+  yield put({ type: 'CLEAR_LEK' });
 
   const syncTask = yield fork(syncPatients);
 
@@ -102,6 +122,7 @@ function* rootSaga() {
     yield takeLeading('GET_PAGINATED_PATIENTS_REQUEST', getPaginatedPatients),
     yield takeLeading('GET_PAGINATED_PATIENTS_FAILURE', getPaginatedPatients),
     yield takeLatest('GET_PATIENTS_REQUEST', refreshPatients),
+    yield takeLeading('GET_ITEMS_REQUEST', getItems)
   ]);
 }
 

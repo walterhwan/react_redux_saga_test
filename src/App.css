@@ -25,6 +25,16 @@
   /* color: #61dafb; */
 }
 
+.ul-nav {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.ul-nav li {
+  margin: 0px 20px 0px 20px;
+}
+
 .list-item {
   display: flex;
   flex-direction: row;
@@ -36,6 +46,19 @@
   margin: 20px 10px 10px 10px;
 }
 .list-item p:last-child {
+  width: 200px;
+}
+
+.list-refresh {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+}
+.list-refresh p {
+  width: 100px;
+  margin: 20px 10px 10px 10px;
+}
+.list-refresh p:last-child {
   width: 200px;
 }
 

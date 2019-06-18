@@ -125,8 +125,4 @@ router.get('/', async function(req, res) {
   res.json(returnJson);
 });
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
 module.exports = router;

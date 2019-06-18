@@ -31,6 +31,15 @@ function patientLEK(state = '', action) {
   }
 }
 
+function items(state = [], action) {
+  switch (action.type) {
+    case 'SET_ITEMS':
+      return action.payload  
+    default:
+      return state;
+  }
+}
+
 // function autoFetch(state = true, action) {
 //   switch (action.type) {
 //     case 'STOP_AUTOFETCH':
@@ -65,6 +74,7 @@ function patientLEK(state = '', action) {
 const rootRecuders = combineReducers({
   patients,
   patientLEK,
+  items,
   // autoFetch,
 });
 
