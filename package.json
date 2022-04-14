@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "async": "^3.0.1",
+    "async": "^3.2.2",
     "delay": "^4.3.0",
     "lodash": "^4.17.11",
     "qrcode.react": "^0.9.3",
